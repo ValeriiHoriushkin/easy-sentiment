@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static strings.StringWorker.*;
+
+
 public class SentiWordNet {
 
     private Map<String, Double> dictionary;
@@ -86,17 +89,18 @@ public class SentiWordNet {
     }
 
     //Aaaaaa bbbb ccccc ddddd .... zzzzz.(!,?)
-    private double sentimentOfSentence(String sentenceString){
-        String[] wordsInSentence = sentenceString.split(" ");
+    private double getSentimentScoreByVocabulary(String text){
+        splitToSentence("Today  ^^  very good    day. Yeah, it is great!!!!!!!! I agree with you. ...  ");
+        String[] wordsInSentence = text.split(" ");
         String lastWord = wordsInSentence[wordsInSentence.length-1];
         String typeSentence = lastWord.substring(lastWord.length()-1);
         wordsInSentence[wordsInSentence.length-1] = lastWord.substring(0,lastWord.length()-1);
         for (String s : wordsInSentence){
-            System.out.println(s);
+            //System.out.println(s);
         }
-        System.out.println(typeSentence);
         return 0.0;
     }
+
 
     public static void main(String [] args) throws IOException {
         if(args.length<1) {
@@ -106,12 +110,12 @@ public class SentiWordNet {
 
         String pathToSWN = args[0];
         SentiWordNet sentiwordnet = new SentiWordNet(pathToSWN);
-        sentiwordnet.sentimentOfSentence("Today very good day!");
+        sentiwordnet.getSentimentScoreByVocabulary("Today very good day. Yeah, it is great!!!! I agree with you.");
 
 
-        System.out.println("today "+sentiwordnet.extract("today", ""));
+        /*System.out.println("today "+sentiwordnet.extract("today", ""));
         System.out.println("bad#a "+sentiwordnet.extract("bad", "a"));
         System.out.println("blue#a "+sentiwordnet.extract("blue", "a"));
-        System.out.println("blue#n "+sentiwordnet.extract("blue", "n"));
+        System.out.println("blue#n "+sentiwordnet.extract("blue", "n"));*/
     }
 }
